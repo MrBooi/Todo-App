@@ -84,7 +84,7 @@ class _TodoPageState extends State<TodoPage> {
           color: _theme.accentColor,
         ),
         onPressed: () {
-          Navigator.pushNamed(context, CreateTodoPage.routeName);
+          return Navigator.pushNamed(context, CreateTodoPage.routeName);
         },
       ),
     );

@@ -21,7 +21,9 @@ class Todos with ChangeNotifier {
     );
 
     _items.add(newTodo);
+
     notifyListeners();
+    print(_items.length);
     DBHelper.insert('user_todos', {
       'id': newTodo.id,
       'content': newTodo.content,

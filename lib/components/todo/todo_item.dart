@@ -18,7 +18,7 @@ class TodoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        "Task No $index",
+        "Task No ${index + 1} ",
         style: TextStyle(color: Colors.grey[900], fontWeight: FontWeight.bold),
       ),
       subtitle: Text(
