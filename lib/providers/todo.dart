@@ -10,7 +10,7 @@ class Todos with ChangeNotifier {
   }
 
   TodoModel findById(String id) {
-    return _items.firstWhere((place) => place.id == id);
+    return _items.firstWhere((todo) => todo.id == id);
   }
 
   void addTodo(String content) async {
@@ -41,5 +41,11 @@ class Todos with ChangeNotifier {
         )
         .toList();
     notifyListeners();
+  }
+
+  Future<void> removeTodo(String id) async {
+    _items.removeWhere((todo) => todo.id == id);
+    notifyListeners();
+    DBHelper.delete('user_todos', id);
   }
 }

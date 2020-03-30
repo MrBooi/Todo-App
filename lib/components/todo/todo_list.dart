@@ -31,6 +31,7 @@ class TodoItemList extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: TodoItem(
                                   index: index + 1,
+                                  id: todos.items[index].id,
                                   content: todos.items[index].content),
                             );
                           },
