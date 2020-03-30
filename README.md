@@ -1,17 +1,29 @@
-# todo App
+# Todo App
 
-A new Flutter project.
+Simple flutter todo app that allow user to Create, GET , Edit and Delete todo.
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+A few commands to run the app:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- `Git Clone`
+-  `Cd into ( cd todo-app) folder`
+-  `Flutter packages get`
+-  `flutter run`
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+Installed packages:
+
+  - provider 
+  - sqflite
+
+Provider Package -  Is used to control app state of this project
+sqflite packages -  Is a SQL database packages used to store all the user's todos into app, 
+                   Once the user Uninstall the app all of the data will be removed.
+
+
+
+
 
