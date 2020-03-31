@@ -32,6 +32,7 @@ class DBHelper {
   }
 
   static Future<void> update(String table, Map<String, Object> data) async {
+    print(data);
     final db = await DBHelper.database();
     db.update(table, data, where: 'id = ?', whereArgs: [data['id']]);
   }

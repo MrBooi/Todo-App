@@ -13,6 +13,16 @@ class Todos with ChangeNotifier {
     return _items.firstWhere((todo) => todo.id == id);
   }
 
+  void update(String todoId, editedData) {
+    TodoModel todoData = findById(todoId);
+
+    if (todoData.id.isEmpty) {
+    } else {
+      notifyListeners();
+      DBHelper.update('user_todos', editedData);
+    }
+  }
+
   void addTodo(String content) async {
     final newTodo = TodoModel(
       id: DateTime.now().toString(),

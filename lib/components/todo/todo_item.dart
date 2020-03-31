@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/pages/create_todo.dart';
 import 'package:todo/providers/todo.dart';
 
 class TodoItem extends StatelessWidget {
@@ -25,14 +26,30 @@ class TodoItem extends StatelessWidget {
         content,
         style: TextStyle(color: Colors.grey[700]),
       ),
-      trailing: IconButton(
-        icon: Icon(
-          Icons.delete,
-          color: Colors.pink,
-        ),
-        onPressed: () {
-          remove(context, id);
-        },
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.edit,
+              color: Colors.pink,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, CreateTodoPage.routeName,
+                  arguments: id);
+              // remove(context, id);
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.delete,
+              color: Colors.pink,
+            ),
+            onPressed: () {
+              remove(context, id);
+            },
+          )
+        ],
       ),
       isThreeLine: true,
     );

@@ -10,13 +10,19 @@ class CreateTodoPage extends StatefulWidget {
 }
 
 class _CreateTodoPageState extends State<CreateTodoPage> {
-  TextEditingController _contentController;
+  TextEditingController _contentController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  bool isLoading = false;
+  String _id = '';
+  bool isInit = true;
+
+  var editedData;
 
   @override
-  void initState() {
-    _contentController = TextEditingController();
-    super.initState();
+  void didChangeDependencies() {
+    fetch();
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -35,14 +41,42 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
     );
   }
 
+  void fetch() {
+    if (isInit) {
+      var todoId = ModalRoute.of(context).settings.arguments as String;
+      setState(() {
+        _id = todoId;
+      });
+    }
+    if (_id.isEmpty) {
+      print('isEmpty');
+      return;
+    } else {
+      var result = Provider.of<Todos>(context, listen: false).findById(_id);
+
+      editedData = {
+        'id': result.id,
+        'content': result.content,
+        'timestamp': result.timeStamp
+      };
+
+      _contentController.text = editedData['content'];
+    }
+  }
+
   void _save() {
     if (_contentController.text.isEmpty) {
       showInSnackBar('Opps content cant be empty!');
       return;
     }
-    Provider.of<Todos>(context, listen: false).addTodo(
-      _contentController.text,
-    );
+    if (_id.isEmpty) {
+      Provider.of<Todos>(context, listen: false).addTodo(
+        _contentController.text,
+      );
+    } else {
+      Provider.of<Todos>(context, listen: false).update(_id, editedData);
+    }
+
     Navigator.of(context).pop();
   }
 
@@ -60,7 +94,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
   Widget buildAppBar() {
     return AppBar(
       title: Text(
-        'Create Todos',
+        _id.isEmpty ? 'Create Todos' : 'Update Todos',
         style: TextStyle(
           color: _theme.accentColor,
         ),
@@ -101,6 +135,11 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
       child: TextField(
         maxLines: 4,
         controller: _contentController,
+        onChanged: (value) {
+          setState(() {
+            editedData['content'] = value;
+          });
+        },
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
@@ -124,7 +163,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
             ),
             onPressed: _save,
             child: Text(
-              'Save',
+              _id.isEmpty ? 'Save' : 'Edit',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
