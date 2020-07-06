@@ -48,7 +48,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
         _id = todoId;
       });
     }
-    if (_id.isEmpty) {
+    if (_id == null) {
       print('isEmpty');
       return;
     } else {
@@ -69,7 +69,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
       showInSnackBar('Opps content cant be empty!');
       return;
     }
-    if (_id.isEmpty) {
+    if (_id == null) {
       Provider.of<Todos>(context, listen: false).addTodo(
         _contentController.text,
       );
@@ -94,7 +94,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
   Widget buildAppBar() {
     return AppBar(
       title: Text(
-        _id.isEmpty ? 'Create Todos' : 'Update Todos',
+        _id == null ? 'Create Todos' : 'Update Todos',
         style: TextStyle(
           color: _theme.accentColor,
         ),
@@ -163,7 +163,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
             ),
             onPressed: _save,
             child: Text(
-              _id.isEmpty ? 'Save' : 'Edit',
+              _id == null ? 'Save' : 'Edit',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,

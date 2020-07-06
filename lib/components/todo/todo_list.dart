@@ -1,43 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:todo/components/todo/todo_item.dart';
-import 'package:todo/providers/todo.dart';
+// import 'package:todo/providers/todo.dart';
 
 class TodoItemList extends StatelessWidget {
   final ScrollController _controller;
+  final List items;
 
-  TodoItemList(this._controller);
+  TodoItemList(this._controller, this.items);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Provider.of<Todos>(context, listen: false).fetchAndSetTodos(),
-      builder: (ctx, snapshot) => snapshot.connectionState ==
-              ConnectionState.waiting
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Consumer<Todos>(
-              child: Center(
-                child: const Text('Got no todos, Start adding some!'),
-              ),
-              builder: (ctx, todos, ch) => todos.items.length <= 0
-                  ? ch
-                  : ListView.builder(
-                      itemCount: todos.items.length,
-                      controller: _controller,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding:
-                              const EdgeInsets.only(right: 8, left: 8, top: 4),
-                          child: TodoItem(
-                              index: index,
-                              id: todos.items[index].id,
-                              content: todos.items[index].content),
-                        );
-                      },
-                    ),
-            ),
+    return ListView.builder(
+      itemCount: items.length,
+      controller: _controller,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 8, left: 8, top: 4),
+          child: TodoItem(
+              index: index, id: items[index].id, content: items[index].content),
+        );
+      },
     );
   }
 }

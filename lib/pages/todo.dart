@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/components/todo/todo_list.dart';
+import 'package:todo/providers/todo.dart';
 
 // import Screens
 import '../pages/create_todo.dart';
@@ -13,6 +15,15 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   ThemeData _theme;
+
+  Todos _todos;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _todos = Provider.of<Todos>(context);
+    _todos.fetchAndSetTodos();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +48,7 @@ class _TodoPageState extends State<TodoPage> {
       top: 80,
       left: 20,
       child: Text(
-        'Todos',
+        'Todos ${_todos.items.length} ',
         style: TextStyle(
           color: _theme.accentColor,
           fontSize: 40,
@@ -64,7 +75,7 @@ class _TodoPageState extends State<TodoPage> {
                   topRight: Radius.circular(30),
                 ),
               ),
-              child: TodoItemList(_controller),
+              child: TodoItemList(_controller, _todos.items),
             ),
             buildAddBtn()
           ],
