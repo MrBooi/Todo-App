@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 import 'package:todo/components/todo/todo_item.dart';
-// import 'package:todo/providers/todo.dart';
 
 class TodoItemList extends StatelessWidget {
   final ScrollController _controller;
